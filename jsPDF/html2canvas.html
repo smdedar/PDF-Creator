@@ -1,0 +1,148 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/jspdf"></script>
+    <script src="https://unpkg.com/jspdf-autotable"></script>
+    <script src="https://unpkg.com/html2canvas@1.0.0-rc.5/dist/html2canvas.js"></script>
+    <script src="jsPdf.debug.js"></script>
+
+    <style>
+        table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+img{
+    height: 100px;
+}
+
+
+    </style>
+  </head>
+  <body>
+    <button onclick="makePDF()">Save PDF</button>
+
+    <div id="container-fluid">
+
+    
+    <table>
+    
+      <tr class="top">
+        <td  style="text-align: center;" colspan="3"><img src="index.png" alt="" srcset=""></td>
+      </tr>
+      <tr>
+        <td>
+            <h3>Biller Address</h3>
+            <strong>Name:</strong> S.M. Dedar Alam
+            <br>
+            <strong>Address:</strong> 12, Banani, Dhaka
+            <br>
+            <strong>Phone: </strong> 01632316121
+            <br>
+            <strong>Email: </strong> smdedar@yahoo.com
+        </td>
+        <td></td>
+        <td>
+            <h3>Payment Summery</h3>
+            <strong>Invoice Number: </strong> UBL_25HGSLAJSD
+            <br>
+            <strong>Payment Method: </strong> Bkash
+            <br>
+            <strong>Payment Balance: </strong> 7522
+        </td>
+      </tr>
+      <tr>
+        <td>Ernst Handel</td>
+        <td>Roland Mendel</td>
+        <td>Austria</td>
+      </tr>
+      <tr>
+        <td>Island Trading</td>
+        <td>Helen Bennett</td>
+        <td>UK</td>
+      </tr>
+      <tr>
+        <td>Laughing Bacchus Winecellars</td>
+        <td>Yoshi Tannamuri</td>
+        <td>Canada</td>
+      </tr>
+      <tr>
+        <td>Magazzini Alimentari Riuniti</td>
+        <td>Giovanni Rovelli</td>
+        <td>Italy</td>
+      </tr>
+    </table>
+
+</div>
+  </body>
+</html>
+
+
+<script>
+    function makePDF() {
+
+var quotes = document.getElementById('container-fluid');
+
+html2canvas(quotes, {
+    onrendered: function(canvas) {
+
+    //! MAKE YOUR PDF
+    var pdf = new jsPDF('p', 'pt', 'letter');
+
+    for (var i = 0; i <= quotes.clientHeight/980; i++) {
+        //! This is all just html2canvas stuff
+        var srcImg  = canvas;
+        var sX      = 0;
+        var sY      = 980*i; // start 980 pixels down for every new page
+        var sWidth  = 900;
+        var sHeight = 980;
+        var dX      = 0;
+        var dY      = 0;
+        var dWidth  = 900;
+        var dHeight = 980;
+
+        window.onePageCanvas = document.createElement("canvas");
+        onePageCanvas.setAttribute('width', 900);
+        onePageCanvas.setAttribute('height', 980);
+        var ctx = onePageCanvas.getContext('2d');
+        // details on this usage of this function: 
+        // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#Slicing
+        //ctx.drawImage(srcImg,sX,sY,sWidth,sHeight,dX,dY,dWidth,dHeight);
+        ctx.drawImage(srcImg,0,0);
+
+        // document.body.appendChild(canvas);
+        var canvasDataURL = onePageCanvas.toDataURL("image/png", 1.0);
+
+        var width         = onePageCanvas.width;
+        var height        = onePageCanvas.clientHeight;
+
+        //! If we're on anything other than the first page,
+        // add another page
+        if (i > 0) {
+            pdf.addPage(612, 791); //8.5" x 11" in pts (in*72)
+        }
+        //! now we declare that we're working on that page
+        pdf.setPage(i+1);
+        //! now we add content to that page!
+        pdf.addImage(canvasDataURL, 'PNG', 100, 40, (width*.62), (height*.62));
+
+    }
+    //! after the for loop is finished running, we save the pdf.
+    pdf.save('test.pdf');
+}
+});
+}
+</script>
