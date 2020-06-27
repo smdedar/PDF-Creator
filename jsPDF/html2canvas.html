@@ -22,12 +22,15 @@
         padding: 8px;
       }
 
-      tr:nth-child(even) {
-        background-color: #dddddd;
-      }
+    
 
       img {
         height: 100px;
+      }
+
+      th{
+        background-color: #dddddd;
+        color: #1a0a0a;
       }
     </style>
   </head>
@@ -42,7 +45,7 @@
           </td>
         </tr>
         <tr>
-          <td>
+          <th>
             <h3>Biller Address</h3>
             <strong>Name:</strong> S.M. Dedar Alam
             <br />
@@ -51,29 +54,31 @@
             <strong>Phone: </strong> 01632316121
             <br />
             <strong>Email: </strong> smdedar@yahoo.com
-          </td>
-          <td></td>
-          <td>
+          </th>
+          <th></th>
+          <th>
             <h3>Payment Summery</h3>
             <strong>Invoice Number: </strong> UBL_25HGSLAJSD
             <br />
             <strong>Payment Method: </strong> Bkash
             <br />
             <strong>Payment Balance: </strong> 7522
-          </td>
+          </th>
         </tr>
       </table>
 
       <br>
       <table>
         <thead>
-
+            <th>Details</th>
+            <th>Quantity</th>
+            <th>Amount</th>
         </thead>
         <tbody>
           <tr>
-            <td>Ernst Handel</td>
-            <td>Roland Mendel</td>
-            <td>Austria</td>
+            <td>Tuition Fee </td>
+            <td>1</td>
+            <td>100000</td>
           </tr>
           <tr>
             <td>Island Trading</td>
@@ -86,9 +91,8 @@
             <td>Canada</td>
           </tr>
           <tr>
-            <td>Magazzini Alimentari Riuniti</td>
-            <td>Giovanni Rovelli</td>
-            <td>Italy</td>
+            <td colspan="2">Total</td>
+            <td>7550</td>
           </tr>
         </tbody>
       </table>

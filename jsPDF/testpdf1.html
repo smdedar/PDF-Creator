@@ -1,0 +1,124 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+
+    <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td,
+      th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+    
+
+      img {
+        height: 100px;
+      }
+
+      th{
+        background-color: #dddddd;
+        
+      }
+
+      #invoice1{
+        width: 80%;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="download" onclick="makePDF()">Save PDF</button>
+    <div id="invoice1">
+
+    <div id="invoice">
+      <table>
+        <tr class="top">
+          <td style="text-align: center;" colspan="3">
+            <img src="index.png" alt="" srcset="" />
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <h3>Biller Address</h3>
+            <strong>Name:</strong> S.M. Dedar Alam
+            <br />
+            <strong>Address:</strong> 12, Banani, Dhaka
+            <br />
+            <strong>Phone: </strong> 01632316121
+            <br />
+            <strong>Email: </strong> smdedar@yahoo.com
+          </th>
+          <th></th>
+          <th>
+            <h3>Payment Summery</h3>
+            <strong>Invoice Number: </strong> UBL_25HGSLAJSD
+            <br />
+            <strong>Payment Method: </strong> Bkash
+            <br />
+            <strong>Payment Balance: </strong> 7522
+          </th>
+        </tr>
+      </table>
+
+      <br>
+      <table>
+        <thead>
+            <th>Details</th>
+            <th>Quantity</th>
+            <th>Amount</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Tuition Fee </td>
+            <td>1</td>
+            <td>100000</td>
+          </tr>
+          <tr>
+            <td>Island Trading</td>
+            <td>Helen Bennett</td>
+            <td>UK</td>
+          </tr>
+          <tr>
+            <td>Laughing Bacchus Winecellars</td>
+            <td>Yoshi Tannamuri</td>
+            <td>Canada</td>
+          </tr>
+          <tr>
+            <td colspan="2">Total</td>
+            <td>7550</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </body>
+</html>
+
+<script>
+    window.onload = function () {
+    document.getElementById("download")
+        .addEventListener("click", () => {
+            const invoice = this.document.getElementById("invoice");
+            console.log(invoice);
+            console.log(window);
+            var opt = {
+                margin: 1,
+                filename: 'myfile.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().from(invoice).set(opt).save();
+        })
+}
+</script>
